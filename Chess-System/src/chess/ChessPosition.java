@@ -9,8 +9,8 @@ public class ChessPosition {
     //Se a coluna for menor que o caracter 'a'  ou mais que o caracter 'h'  não sera aceito
     //Se a linha for menor que 1 e maior que 8, não sera aceito
     public ChessPosition(char column, int row){
-        if ( column < 'a' || column >'h'| row < 'a'|| row >8)
-            throw new ChessException("Erro ao instanciar ChessPosition, os valores validos são ed a1 ate h8");
+        if ( column < 'a' || column >'h'| row < 1 || row > 8)
+            throw new ChessException("Erro ao instanciar ChessPosition, os valores validos são de a1 ate h8");
         this.column = column;
         this.row = row;
     }
