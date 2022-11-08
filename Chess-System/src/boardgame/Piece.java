@@ -14,13 +14,17 @@ public abstract class Piece {
     protected Board getBoard() {
         return board;
     }
+    public abstract boolean [][] possibleMoves();
 
-    public abstract boolean[][] possibleMoves();
-
-    public boolean possibleMove(Position position) {
-        return possibleMoves()[position.getRow()][position.getColumn()];
+    //Metodo concreto que usa um metodo abstato
+    //Testa se a peça pode mover para a posição informada
+    public boolean possibleMove(Position position){
+         return possibleMoves()[position.getRow()][position.getColumn()];
     }
 
+    //Verifica o movimento da peça para que tenha o caminho certo
+    //Testa se a matriz na coluna e na linha é verdade
+    // caso seja, terá um movimento possivel de se fazer com a peça
     public boolean isThereAnyPossibleMove() {
         boolean[][] mat = possibleMoves();
         for (int i=0; i<mat.length; i++) {
