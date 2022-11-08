@@ -48,6 +48,23 @@ public class Board {
         pieces[position.getRow()][position.getColumn()] =piece;
         piece.position= position; //Não está mais na posição nulla
     }
+    //Metodo de remoção de peça
+    //verifica se possui uma peça naquela posição
+    //Cria uma variavel do tipo Piece e atribui a variavel a null para (remover a peça)
+    //utiliza a matriz de peça para informar que a linha e a coluna onde estava a peça não tem nada
+
+    public Piece removePiece(Position position) {
+        if (!positionExists(position)) {
+            throw new BoardException("Não possui essa posição no tabuleiro");
+        }
+        if (piece(position) == null) {
+            return null;
+        }
+        Piece aux = piece(position);
+        aux.position=null;
+        pieces[position.getRow()][position.getColumn()]= null;
+        return aux;
+    }
 
     //verifica se a posição existe dentro do tabuleiro
     private boolean positionExists(int row, int column){
