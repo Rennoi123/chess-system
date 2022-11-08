@@ -43,10 +43,14 @@ public class ChessMatch {
         return (ChessPiece) capturedPiece;
     }
 
+    // Valida a posição de origem
+    //Verifica se não existe uma peça na posição de origem
     private void validateSourcePosition(Position position){
         if (!board.thereIsAPiece(position)){
             throw new ChessException("Não existe peça na posição de origem: ");
         }
+        if (!board.piece(position).isThereAnyPossibleMove()); //acessa o tabuleiro  e acessa a peça e verifica se a peça tem algum movimento possivel
+        throw new ChessException("Não existe movimentos possiveis para a peça selecionada");
     }
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
