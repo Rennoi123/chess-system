@@ -32,6 +32,13 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+    // https://stackoverflow.com/questions/2979383/java-clear-the-console
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
     //Utiliza O Scanner para salvar a posição que o usuario vai digitatar
     // utiliza o substring para pegar pegar o valor de a1, pois são String e Int então precisa converter com parseInt
     public static ChessPosition readChessPosition(Scanner sc){
@@ -41,7 +48,7 @@ public class UI {
             int row = Integer.parseInt(s.substring(1));
             return new ChessPosition(column, row);
         } catch (RuntimeException e){
-            throw new InputMismatchException("Erro ao ler a posição, pois no tabuleiro de xadrez so pode utilizar do a1 ao h8");
+            throw new InputMismatchException("Erro ao ler a posição, pois no tabuleiro de xadrez so pode utilizar as posições do a1 ao h8");
         }
   }
     public static void printBoard(ChessPiece[][] pieces) {
