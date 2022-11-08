@@ -12,6 +12,7 @@ public class UI {
 
     //Código especias das cores para imprimir no console
     //Cores do texto
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -37,8 +38,6 @@ public class UI {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
-
     //Utiliza O Scanner para salvar a posição que o usuario vai digitatar
     // utiliza o substring para pegar pegar o valor de a1, pois são String e Int então precisa converter com parseInt
     public static ChessPosition readChessPosition(Scanner sc){
