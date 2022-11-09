@@ -25,8 +25,14 @@ public class ChessMatch {
         return mat;
     }
 
-    //Metodo para retirar a peça na opção de origem para colocar na opção de destino
+    // metodo que informa quais posições a peça dele pode fazer===
+    public boolean [][] possibleMoves(ChessPosition sourcePosition){
+        Position position = sourcePosition.toPosition();
+        validateSourcePosition(position);
+        return board.piece(position).possibleMoves();
+    }
 
+    //Metodo para retirar a peça na opção de origem para colocar na opção de destino
     public ChessPiece perfomChessMove(ChessPosition sourcePosition,ChessPosition tagetPosition){
         Position source = sourcePosition.toPosition(); // converte posição para posição da matriz
         Position target = tagetPosition.toPosition();
