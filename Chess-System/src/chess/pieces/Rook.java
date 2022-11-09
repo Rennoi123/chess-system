@@ -47,10 +47,10 @@ public class Rook extends ChessPiece {
         //Faz a movimentação verificando as linhas, de acordo com os movientos real da torre
         //verifica se consegue andar de acordo com as linhas,(horizontal)
 
-        p.setValues(position.getRow()-1, position.getColumn());
+        p.setValues(position.getRow()+1, position.getColumn());
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)){
             mat[p.getRow()][p.getColumn()]= true;
-            p.setRow(p.getRow() - 1);
+            p.setRow(p.getRow() + 1);
         }
         //Testa se tem peça adversaria no final do movimento
         if (getBoard().positionExists(p)&& isThereOpponentPiece(p)){
