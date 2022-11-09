@@ -6,11 +6,18 @@ import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMatch {
 
     private int turn;
     private Color currentPlayer;
     private Board board;
+
+    private List<Piece> piecesOnTheBoad =new ArrayList<>();
+
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMatch() {
         board = new Board(8, 8);
@@ -57,9 +64,14 @@ public class ChessMatch {
     //Logica de realizar o movimento das peças
     private Piece makeMove(Position source, Position target){
         Piece p = board.removePiece(source); //Remove peça da posição de origem
-        Piece capturedPiece = board.removePiece(target); // remove peça na posição de destino que será a peça  CAPTURADA
-        board.placePiece(p, target);
-        return (ChessPiece) capturedPiece;
+        Piece capturedPiece = board.removePiece(target); // remove peça na posição de destino que será a peça CAPTURADA
+        board.placePiece(p, target); // coloca na posição de destino a peça que estava na posição de origem
+
+        if (capturedPiece != null){
+            piecesOnTheBoad.remove(capturedPiece); // Retira a peça na lista de peças o tabuleiro
+            capturedPieces.add(capturedPiece);
+        }
+        return  capturedPiece;
     }
 
     // Valida a posição de origem
@@ -82,8 +94,10 @@ public class ChessMatch {
         }
     }
 
+    //Metodo para colocar uma nova peça
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoad.add(piece); //
     }
     //Metodo para trocar de turno apos 1 jogada
     private void nextTurn(){
