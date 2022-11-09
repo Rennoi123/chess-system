@@ -18,6 +18,10 @@ public abstract class ChessPiece extends Piece {
         return color;
     }
 
+    public ChessPosition getChessPosition(){
+        return ChessPosition.fromPosition(position);
+
+    }
     // metodo que verifica se possui uma peça adiversaria no local de destin
     protected boolean isThereOpponentPiece(Position position) {
         ChessPiece p = (ChessPiece)getBoard().piece(position); // variavel criada para receber a peça q esta nessa posição
