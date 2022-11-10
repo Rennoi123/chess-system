@@ -87,17 +87,36 @@ public class ChessMatch {
         return (ChessPiece) capturedPiece;
     }
     //Logica de realizar o movimento das peças
-    private Piece makeMove(Position source, Position target){
-        ChessPiece p =  (ChessPiece) board.removePiece(source); //Remove peça da posição de origem
+    private Piece makeMove(Position source, Position target) {
+        ChessPiece p = (ChessPiece) board.removePiece(source); //Remove peça da posição de origem
         p.increaseMoveCount();
         Piece capturedPiece = board.removePiece(target); // remove peça na posição de destino que será a peça CAPTURADA
         board.placePiece(p, target); // coloca na posição de destino a peça que estava na posição de origem
 
-        if (capturedPiece != null){
+        if (capturedPiece != null) {
             piecesOnTheBoard.remove(capturedPiece); // Retira a peça na lista de peças o tabuleiro
             capturedPieces.add(capturedPiece);
         }
-        return  capturedPiece;
+        //#specialmove  Rook pequeno
+        if (p instanceof King && target.getColumn() == source.getColumn() + 2) { // verifica se o p é instancia de king e pega a coluna de destino e e iguala a de origem e soma 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
+            Position targetT = new Position(source.getRow(), source.getColumn() + 1); // +1 coluna pra direita
+            ChessPiece rook = (ChessPiece) board.removePiece(sourceT); // criam uma variavel rook para remover a torre  de onde ela está
+            board.placePiece(rook, targetT); //Coloca a Torre no lugar de desitno dela que é referente ao moviemnto Rook
+            rook.increaseMoveCount(); //incremente e faz a quantidade de movimento dela
+
+        }
+        //#specialmove Queenside Grande
+        if (p instanceof King && target.getColumn() == source.getColumn() - 2) { // verifica se o p é instancia de king e pega a coluna de destino e e iguala a de origem e soma 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
+            Position targetT = new Position(source.getRow(), source.getColumn() - 1); // +1 coluna pra direita
+            ChessPiece rook = (ChessPiece) board.removePiece(sourceT); // criam uma variavel rook para remover a torre  de onde ela está
+            board.placePiece(rook, targetT);//Coloca a Torre no lugar de desitno dela que é referente ao moviemnto Rook
+            rook.increaseMoveCount(); //incremente e faz a quantidade de movimento dela
+
+        }
+
+        return capturedPiece;
     }
 
     private  void undoMove(Position source,Position target, Piece capturedPiece){
@@ -110,8 +129,25 @@ public class ChessMatch {
         capturedPieces.remove(capturedPiece);
         piecesOnTheBoard.add(capturedPiece);
     }
-    }
 
+        //#specialmove  Rook pequeno
+        if (p instanceof King && target.getColumn() == source.getColumn() + 2) { // verifica se o p é instancia de king e pega a coluna de destino e e iguala a de origem e soma 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
+            Position targetT = new Position(source.getRow(), source.getColumn() + 1); // +1 coluna pra direita
+            ChessPiece rook = (ChessPiece) board.removePiece(targetT); // criam uma variavel rook para remover a torre  de onde ela está
+            board.placePiece(rook, sourceT); //Coloca a Torre no lugar de desitno dela que é referente ao moviemnto Rook
+            rook.decreaseMoveCount(); //incremente e faz a quantidade de movimento dela
+
+        }
+        //#specialmove Queenside Grande
+        if (p instanceof King && target.getColumn() == source.getColumn() - 2) { // verifica se o p é instancia de king e pega a coluna de destino e e iguala a de origem e soma 2
+            Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
+            Position targetT = new Position(source.getRow(), source.getColumn() - 1); // +1 coluna pra direita
+            ChessPiece rook = (ChessPiece) board.removePiece(targetT); // criam uma variavel rook para remover a torre  de onde ela está
+            board.placePiece(rook, sourceT);//Coloca a Torre no lugar de desitno dela que é referente ao moviemnto Rook
+            rook.decreaseMoveCount(); //incremente e faz a quantidade de movimento dela
+        }
+    }
 
     // Valida a posição de origem
     //Verifica se não existe uma peça na posição de origem
@@ -203,7 +239,7 @@ public class ChessMatch {
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
         placeNewPiece('c', 1, new Bishop(board, Color.WHITE));
         placeNewPiece('d', 1, new Queen(board, Color.WHITE));
-        placeNewPiece('e', 1, new King(board, Color.WHITE));
+        placeNewPiece('e', 1, new King(board, Color.WHITE,this));
         placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
         placeNewPiece('g', 1, new Knight(board, Color.WHITE));
         placeNewPiece('h', 1, new Rook(board, Color.WHITE));
@@ -220,7 +256,7 @@ public class ChessMatch {
         placeNewPiece('b', 8, new Knight(board, Color.BLACK));
         placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
         placeNewPiece('d', 8, new Queen(board, Color.BLACK));
-        placeNewPiece('e', 8, new King(board, Color.BLACK));
+        placeNewPiece('e', 8, new King(board, Color.BLACK,this));
         placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
         placeNewPiece('g', 8, new Knight(board, Color.BLACK));
         placeNewPiece('h', 8, new Rook(board, Color.BLACK));
