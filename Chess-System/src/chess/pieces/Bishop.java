@@ -56,10 +56,8 @@ public class Bishop extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        //****Movimento PARA  DIREITA ****
         // Faz a movimentação verificando as colunas, de acordo com os movientos real da torre
         //verifica se consegue andar de acordo com a coluna, no caso na diagonal
-
         p.setValues(position.getRow()+1,position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)){
             mat[p.getRow()][p.getColumn()]=true;
