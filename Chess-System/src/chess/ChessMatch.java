@@ -127,7 +127,7 @@ public class ChessMatch {
              throw new IllegalStateException("Não possui peça para ser promovida");
          }
          if (!type.equals("B")&&!type.equals("C")&&!type.equals("R")&&!type.equals("Q")){
-             throw new InvalidParameterException("Tipo invalido para promoção");
+             return promoted; // caso seja selecionado uma letra invalida, ele retorna o valor que foi declarado na promoted ("Q")
          }
 
          Position pos = promoted.getChessPosition().toPosition();
